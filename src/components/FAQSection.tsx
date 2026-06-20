@@ -34,46 +34,51 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-28 px-6 max-w-4xl mx-auto">
-      <FadeIn className="text-center mb-16">
-        <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">FAQ</p>
-        <SplitTitle className="text-4xl md:text-5xl font-bold text-white mb-5">よくある質問</SplitTitle>
-        <p className="text-blue-200/60 text-lg">
-          お問い合わせ前にご確認ください。
-        </p>
-      </FadeIn>
+    <section id="faq" className="pt-28 border-t border-white/8">
+      <div className="max-w-7xl mx-auto px-8 md:px-16">
+        <FadeIn className="mb-16">
+          <p className="text-white/25 text-xs font-mono tracking-[0.35em] uppercase mb-5">FAQ</p>
+          <SplitTitle className="text-4xl md:text-6xl font-black text-white">よくある質問</SplitTitle>
+        </FadeIn>
 
-      <div className="space-y-3">
-        {faqs.map((faq, i) => (
-          <FadeIn key={faq.q} delay={i * 60}>
-            <div
-              className={`border rounded-xl overflow-hidden transition-all duration-300 ${
-                openIndex === i ? "border-blue-500/50 bg-blue-950/40" : "border-white/10 bg-white/5 hover:border-white/20"
-              }`}
-            >
-              <button
-                className="w-full text-left flex items-center justify-between gap-4 p-6"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              >
-                <span className="text-white font-semibold">{faq.q}</span>
-                <span
-                  className={`shrink-0 w-6 h-6 rounded-full border border-white/20 flex items-center justify-center text-blue-300 transition-transform duration-300 ${
-                    openIndex === i ? "rotate-45 bg-blue-600 border-blue-600" : ""
+        <div className="border-t border-white/10">
+          {faqs.map((faq, i) => (
+            <FadeIn key={faq.q} delay={i * 50}>
+              <div className="border-b border-white/10">
+                <button
+                  className="w-full text-left flex items-start justify-between gap-8 py-9 group"
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                >
+                  <div className="flex gap-6 md:gap-12 items-start">
+                    <span className="text-white/15 font-mono text-sm shrink-0 pt-0.5 group-hover:text-white/30 transition-colors duration-300">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-white font-semibold text-sm md:text-base leading-relaxed group-hover:text-white/80 transition-colors duration-300">
+                      {faq.q}
+                    </span>
+                  </div>
+                  <span
+                    className={`shrink-0 text-white/30 text-xl leading-none mt-0.5 transition-transform duration-300 group-hover:text-white/60 ${
+                      openIndex === i ? "rotate-45" : ""
+                    }`}
+                  >
+                    +
+                  </span>
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-400 ${
+                    openIndex === i ? "max-h-48 pb-9" : "max-h-0"
                   }`}
                 >
-                  +
-                </span>
-              </button>
-              <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  openIndex === i ? "max-h-48" : "max-h-0"
-                }`}
-              >
-                <p className="px-6 pb-6 text-blue-200/65 text-sm leading-relaxed">{faq.a}</p>
+                  <p className="text-white/40 text-sm leading-relaxed pl-[calc(1.5rem+1.5rem)] md:pl-[calc(3rem+1.5rem)]">
+                    {faq.a}
+                  </p>
+                </div>
               </div>
-            </div>
-          </FadeIn>
-        ))}
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </section>
   );
