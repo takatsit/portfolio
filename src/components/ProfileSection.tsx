@@ -31,21 +31,19 @@ export default function ProfileSection() {
       {/* Two-column split */}
       <div className="flex flex-col lg:flex-row min-h-[600px] border-t border-white/10">
         {/* Left: photo */}
-        <FadeIn direction="left" className="relative lg:w-1/2 h-72 lg:h-auto overflow-hidden">
+        <FadeIn direction="left" className="relative lg:w-1/2 h-[500px] lg:h-auto overflow-hidden">
           <Image
-            src="/images/profile-bg.jpg"
-            alt="profile background"
+            src="/images/profile.jpg"
+            alt="伊藤 誉貢"
             fill
-            className="object-cover object-center transition-transform duration-700 hover:scale-105"
+            className="object-cover transition-transform duration-700 hover:scale-105"
+            style={{ objectPosition: "center 15%" }}
           />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
           {/* Overlay text */}
           <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-2xl font-black text-white mb-5">
-              T
-            </div>
             <h3 className="text-3xl md:text-4xl font-black text-white mb-1">伊藤 誉貢</h3>
-            <p className="text-white/45 text-sm font-mono tracking-[0.15em]">AI活用 / HP作成 / 大手外資系企業勤務</p>
+            <p className="text-white/50 text-sm font-mono tracking-[0.15em]">AI活用 / HP作成 / 大手外資系企業勤務</p>
           </div>
         </FadeIn>
 
