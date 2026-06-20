@@ -7,11 +7,6 @@ export default function PageLoader() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem("gl_loaded")) {
-      setDone(true);
-      return;
-    }
-
     const duration = 2400;
     const tick = 16;
     const steps = duration / tick;
@@ -26,7 +21,6 @@ export default function PageLoader() {
 
       if (current >= steps) {
         clearInterval(timer);
-        sessionStorage.setItem("gl_loaded", "1");
         setTimeout(() => setExiting(true), 200);
         setTimeout(() => setDone(true), 1200);
       }
