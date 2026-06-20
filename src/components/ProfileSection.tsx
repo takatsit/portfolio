@@ -1,13 +1,6 @@
+import Image from "next/image";
 import FadeIn from "./FadeIn";
 import SplitTitle from "./SplitTitle";
-
-const skills = [
-  { label: "AI活用ツール設計・作成", level: 85 },
-  { label: "業務フロー改善", level: 90 },
-  { label: "データ分析・管理", level: 85 },
-  { label: "HP制作", level: 80 },
-  { label: "わかりやすい説明・提案", level: 95 },
-];
 
 const timeline = [
   { year: "2019", event: "大学時代から4年間、塾講師として小〜高校生に文理問わず指導" },
@@ -17,83 +10,95 @@ const timeline = [
   { year: "2026", event: "AI×HP作成の副業を開始。中小企業・個人事業主向けに展開中" },
 ];
 
+const skills = [
+  { label: "AI活用ツール設計・作成", level: 85 },
+  { label: "業務フロー改善", level: 90 },
+  { label: "HP制作", level: 80 },
+  { label: "わかりやすい説明・提案", level: 95 },
+];
+
 export default function ProfileSection() {
   return (
-    <section id="profile" className="py-28 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent" />
-      <div className="relative max-w-7xl mx-auto px-6">
-        <FadeIn className="text-center mb-16">
-          <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Profile</p>
-          <SplitTitle className="text-4xl md:text-5xl font-bold text-white mb-5">プロフィール</SplitTitle>
+    <section id="profile" className="pt-28 border-t border-white/8">
+      {/* Section label */}
+      <div className="px-8 md:px-16 mb-14">
+        <FadeIn>
+          <p className="text-white/25 text-xs font-mono tracking-[0.35em] uppercase mb-5">Profile</p>
+          <SplitTitle className="text-4xl md:text-6xl font-black text-white">プロフィール</SplitTitle>
+        </FadeIn>
+      </div>
+
+      {/* Two-column split */}
+      <div className="flex flex-col lg:flex-row min-h-[600px] border-t border-white/10">
+        {/* Left: photo */}
+        <FadeIn direction="left" className="relative lg:w-1/2 h-72 lg:h-auto overflow-hidden">
+          <Image
+            src="/images/profile-bg.jpg"
+            alt="profile background"
+            fill
+            className="object-cover object-center transition-transform duration-700 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+          {/* Overlay text */}
+          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-2xl font-black text-white mb-5">
+              T
+            </div>
+            <h3 className="text-3xl md:text-4xl font-black text-white mb-1">伊藤 誉貢</h3>
+            <p className="text-white/45 text-sm font-mono tracking-[0.15em]">AI活用 / HP作成 / 大手外資系企業勤務</p>
+          </div>
         </FadeIn>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <FadeIn direction="left">
-            <div className="space-y-6">
-              <div className="flex items-center gap-6">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-4xl font-bold text-white shrink-0">
-                  T
+        {/* Right: content */}
+        <FadeIn direction="right" delay={80} className="lg:w-1/2 flex flex-col justify-center px-8 md:px-14 py-14 bg-[#020b18]">
+          {/* Bio */}
+          <p className="text-white/45 text-sm leading-relaxed mb-2">
+            大学・新卒時代の4年間、塾講師として「どうすれば相手に伝わるか」を徹底的に磨いてきました。
+          </p>
+          <p className="text-white/45 text-sm leading-relaxed mb-2">
+            現在は大手外資系企業のオペレーション部門に在籍。データ分析・業務改善を担当し、社内ではExcelマクロやAI活用ツールを自作して業務効率化を実現してきました。
+          </p>
+          <p className="text-white/45 text-sm leading-relaxed mb-10">
+            「ITが難しい」という方に、使えるレベルで届ける。AIの知識と教える力を掛け合わせて、あなたのビジネスを一緒に前に進めます。
+          </p>
+
+          {/* Timeline */}
+          <div className="space-y-4 mb-10 border-t border-white/10 pt-8">
+            {timeline.map((item) => (
+              <div key={item.year + item.event} className="flex gap-6 items-start">
+                <span className="text-white/25 font-mono text-xs tracking-widest shrink-0 w-12 pt-0.5">{item.year}</span>
+                <span className="text-white/40 text-sm leading-relaxed">{item.event}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Skill bars */}
+          <div className="space-y-4 border-t border-white/10 pt-8">
+            {skills.map((skill) => (
+              <div key={skill.label}>
+                <div className="flex justify-between mb-2">
+                  <span className="text-white/40 text-xs font-mono tracking-wide">{skill.label}</span>
+                  <span className="text-white/25 text-xs font-mono">{skill.level}%</span>
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-white">伊藤 誉貢</h3>
-                  <p className="text-blue-300/70">AI活用 / HP作成</p>
-                  <p className="text-blue-300/50 text-sm mt-1">大手外資系企業勤務</p>
+                <div className="h-px bg-white/8 w-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 to-violet-500"
+                    style={{ width: `${skill.level}%` }}
+                  />
                 </div>
               </div>
+            ))}
+          </div>
 
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <p className="text-blue-200/70 text-sm leading-relaxed">
-                  大学・新卒時代の4年間、塾講師として「どうすれば相手に伝わるか」を徹底的に磨いてきました。
-                </p>
-                <p className="text-blue-200/70 text-sm leading-relaxed mt-3">
-                  現在は大手外資系企業のオペレーション部門に在籍4年目。データ分析・業務改善を担当し、社内ではExcelマクロやAI活用ツールを自作して業務効率化を実現してきました。
-                </p>
-                <p className="text-blue-200/70 text-sm leading-relaxed mt-3">
-                  「ITが難しい」という人に、わかりやすく・使えるレベルで届ける。AIの知識と、教える力を掛け合わせて、あなたのビジネスを一緒に前に進めます。
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                {timeline.map((item) => (
-                  <div key={item.year + item.event} className="flex gap-4 items-start">
-                    <span className="text-blue-400 font-mono text-sm shrink-0 w-12">{item.year}</span>
-                    <span className="text-blue-200/65 text-sm">{item.event}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
-
-          <FadeIn direction="right" delay={100}>
-            <div className="space-y-6">
-              <h4 className="text-white font-semibold text-lg">スキル・専門領域</h4>
-              <div className="space-y-4">
-                {skills.map((skill) => (
-                  <div key={skill.label}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-blue-200/80 text-sm">{skill.label}</span>
-                      <span className="text-blue-400 text-sm">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-3 gap-3 mt-6">
-                {["ChatGPT", "Claude", "Excel", "Python", "Dify", "Make"].map((tech) => (
-                  <div key={tech} className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-center text-blue-200/60 text-sm">
-                    {tech}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
-        </div>
+          {/* Tech tags */}
+          <div className="flex flex-wrap gap-2 mt-8">
+            {["ChatGPT", "Claude", "Excel / VBA", "Dify", "Make", "Next.js"].map((tech) => (
+              <span key={tech} className="text-white/30 text-[10px] font-mono tracking-[0.15em] border border-white/10 px-3 py-1.5 rounded-full">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

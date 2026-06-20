@@ -1,59 +1,79 @@
+import Image from "next/image";
 import FadeIn from "./FadeIn";
 import SplitTitle from "./SplitTitle";
 
 const services = [
   {
-    icon: "⚡",
-    title: "AI業務自動化・効率化",
+    number: "01",
+    tag: "AI業務自動化・効率化",
+    title: "繰り返し作業を、\nAIに任せる。",
     description:
-      "繰り返し作業・データ管理・報告書作成など、毎日こなしている手作業をAIで仕組み化します。「やらなきゃいけないけど時間がかかる」を解消して、本業に集中できる環境をつくります。",
+      "データ入力・集計、報告書作成、定型業務など、毎日こなしている手作業をAIで仕組み化します。「やらなきゃいけないけど時間がかかる」を解消して、本業に集中できる環境をつくります。",
     features: ["データ入力・集計の自動化", "レポート・書類作成の効率化", "専用AIツールの設計・作成"],
-    color: "from-blue-600/20 to-blue-900/10",
-    border: "border-blue-700/30 hover:border-blue-500/60",
-    badge: "bg-blue-500/20 text-blue-300",
+    image: "/images/service-ai.jpg",
+    imageAlt: "AI automation",
+    reverse: false,
   },
   {
-    icon: "🌐",
-    title: "HP作成",
+    number: "02",
+    tag: "HP作成",
+    title: "集客につながる\nHPを、低コストで。",
     description:
-      "AIを活用して、集客につながるHPを低コスト・短期間で制作します。「外注するには高すぎる」「自分で作る自信がない」を解決。難しい知識は一切不要です。",
+      "AIを活用してデザイン・テキスト・構成をゼロから制作。「外注すると高すぎる」「自分で作れない」を解決します。難しい知識は一切不要、スマホ対応・問い合わせフォーム付きで納品します。",
     features: ["デザイン・テキスト・構成を一括対応", "スマホ対応・問い合わせフォーム付き", "納品後の更新・修正も対応"],
-    color: "from-violet-600/20 to-violet-900/10",
-    border: "border-violet-700/30 hover:border-violet-500/60",
-    badge: "bg-violet-500/20 text-violet-300",
+    image: "/images/service-web.jpg",
+    imageAlt: "Web creation",
+    reverse: true,
   },
 ];
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-28 px-6 max-w-5xl mx-auto">
-      <FadeIn className="text-center mb-16">
-        <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Services</p>
-        <SplitTitle className="text-4xl md:text-5xl font-bold text-white mb-5">2つのサービス</SplitTitle>
-        <p className="text-blue-200/60 text-lg max-w-2xl mx-auto">
-          AIの力で、あなたのビジネスの課題を解決します。
-        </p>
+    <section id="services" className="pt-28">
+      <FadeIn className="text-center mb-20 px-6">
+        <p className="text-white/30 text-xs font-semibold tracking-[0.3em] uppercase mb-4 font-mono">Services</p>
+        <SplitTitle className="text-4xl md:text-6xl font-black text-white">2つのサービス</SplitTitle>
       </FadeIn>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        {services.map((service, i) => (
-          <FadeIn key={service.title} delay={i * 120} direction="up">
-            <div
-              className={`relative h-full bg-gradient-to-br ${service.color} border ${service.border} rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1`}
-            >
-              <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl ${service.badge} text-3xl mb-6`}>
-                {service.icon}
+      <div>
+        {services.map((service, idx) => (
+          <FadeIn key={service.number} direction="up" delay={idx * 80}>
+            <div className={`flex flex-col ${service.reverse ? "lg:flex-row-reverse" : "lg:flex-row"} min-h-[520px] border-t border-white/10`}>
+              {/* Image half */}
+              <div className="relative lg:w-1/2 h-72 lg:h-auto overflow-hidden">
+                <Image
+                  src={service.image}
+                  alt={service.imageAlt}
+                  fill
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/30" />
+                <div className="absolute top-6 left-6">
+                  <span className="text-white/30 font-black text-6xl font-mono">{service.number}</span>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-              <p className="text-blue-200/65 text-sm leading-relaxed mb-6">{service.description}</p>
-              <ul className="space-y-2">
-                {service.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-blue-200/70">
-                    <span className="text-emerald-400 mt-0.5 shrink-0">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
+
+              {/* Text half */}
+              <div className={`lg:w-1/2 flex flex-col justify-center px-8 md:px-14 py-14 bg-[#020b18]`}>
+                <span className="text-white/30 text-xs tracking-[0.2em] uppercase font-mono mb-5">{service.tag}</span>
+                <h3 className="text-3xl md:text-4xl font-black text-white leading-tight mb-6 whitespace-pre-line">
+                  {service.title}
+                </h3>
+                <p className="text-white/50 text-sm leading-relaxed mb-8 max-w-md">{service.description}</p>
+                <ul className="space-y-2.5">
+                  {service.features.map((f) => (
+                    <li key={f} className="flex items-center gap-3 text-sm text-white/60">
+                      <span className="w-1 h-1 rounded-full bg-blue-400 shrink-0" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-10">
+                  <a href="#contact" className="inline-flex items-center gap-2 text-white text-sm font-semibold border-b border-white/30 pb-1 hover:border-white transition-colors duration-200">
+                    相談する <span>→</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </FadeIn>
         ))}
