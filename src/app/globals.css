@@ -35,12 +35,19 @@ html {
   border-radius: 3px;
 }
 
-/* Gradient text utility */
+/* Gradient text utility with shimmer */
 .gradient-text {
-  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #34d399 100%);
+  background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 30%, #34d399 60%, #60a5fa 100%);
+  background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 250% center; }
 }
 
 /* Glow effect */

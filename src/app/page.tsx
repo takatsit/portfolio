@@ -3,8 +3,6 @@ import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import StatsSection from "@/components/StatsSection";
 import CasesSection from "@/components/CasesSection";
-import GallerySection from "@/components/GallerySection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import ProcessSection from "@/components/ProcessSection";
 import FAQSection from "@/components/FAQSection";
 import ProfileSection from "@/components/ProfileSection";
@@ -19,8 +17,6 @@ export default function Home() {
       <ServicesSection />
       <StatsSection />
       <CasesSection />
-      <GallerySection />
-      <TestimonialsSection />
       <ProcessSection />
       <FAQSection />
       <ProfileSection />

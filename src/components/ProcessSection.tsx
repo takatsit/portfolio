@@ -1,40 +1,41 @@
 import FadeIn from "./FadeIn";
+import SplitTitle from "./SplitTitle";
 
 const steps = [
   {
     number: "01",
-    title: "無料相談・ヒアリング",
-    desc: "現在の業務フローや課題、目標をオンラインでヒアリング。30分程度でAI導入の可能性を診断します。",
-    duration: "30分",
+    title: "お問い合わせ・ヒアリング",
+    desc: "現在の業務の困りごとや「こんなものを作りたい」というイメージをオンラインでヒアリングします。整理できていなくても大丈夫です。",
+    duration: "30〜60分",
   },
   {
     number: "02",
-    title: "現状分析・提案",
-    desc: "ヒアリング内容をもとに、ROIが最大化できる導入領域を特定。コスト試算と優先度を明示した提案書を作成します。",
-    duration: "3〜5営業日",
+    title: "提案・お見積り",
+    desc: "ヒアリング内容をもとに、最適な解決策とお見積りをご提案します。内容に納得いただけたら正式にご依頼ください。",
+    duration: "2〜3営業日",
   },
   {
     number: "03",
-    title: "要件定義・設計",
-    desc: "御社の業務フローに合わせたシステム設計を行います。既存ツールとの連携方法も含めて詳細仕様を確定します。",
-    duration: "1〜2週間",
+    title: "設計・制作",
+    desc: "AIを活用してHP制作・業務自動化ツールの設計・開発を行います。進捗は随時共有し、方向性を確認しながら進めます。",
+    duration: "1〜4週間",
   },
   {
     number: "04",
-    title: "開発・テスト",
-    desc: "AIエージェント・自動化システムを構築。実際のデータを使った動作確認を繰り返し、精度を高めます。",
-    duration: "2〜6週間",
-  },
-  {
-    number: "05",
-    title: "導入・スタッフ研修",
-    desc: "本番環境への導入と、スタッフへの操作説明を実施。現場でスムーズに使い始められるよう丁寧にサポートします。",
+    title: "確認・修正",
+    desc: "完成物をご確認いただき、修正が必要な箇所を対応します。イメージと違う部分は遠慮なくお伝えください。",
     duration: "1週間",
   },
   {
+    number: "05",
+    title: "納品・公開",
+    desc: "HPの公開、または自動化ツールの本番運用を開始します。使い方の説明もセットで行います。",
+    duration: "〜3日",
+  },
+  {
     number: "06",
-    title: "運用・継続改善",
-    desc: "稼働後の効果測定・モニタリングを継続。データが蓄積するほどAIの精度が向上し、さらなる効率化を実現します。",
+    title: "アフターサポート",
+    desc: "納品後も修正・追加対応を行います。使っていく中で出てきた疑問や改善要望もお気軽にご連絡ください。",
     duration: "継続",
   },
 ];
@@ -46,9 +47,9 @@ export default function ProcessSection() {
       <div className="relative max-w-7xl mx-auto px-6">
         <FadeIn className="text-center mb-16">
           <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Process</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">導入の流れ</h2>
+          <SplitTitle className="text-4xl md:text-5xl font-bold text-white mb-5">ご依頼の流れ</SplitTitle>
           <p className="text-blue-200/60 text-lg max-w-2xl mx-auto">
-            無料相談から運用開始まで、一貫してサポートします。
+            お問い合わせから納品まで、丁寧にサポートします。
           </p>
         </FadeIn>
 

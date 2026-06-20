@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import FadeIn from "./FadeIn";
+import SplitTitle from "./SplitTitle";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -11,10 +12,31 @@ export default function ContactSection() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: { preventDefault(): void }) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_FORMSPREE_URL!, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError("送信に失敗しました。直接メールにてご連絡ください。");
+      }
+    } catch {
+      setError("送信に失敗しました。直接メールにてご連絡ください。");
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputClass =
@@ -28,9 +50,9 @@ export default function ContactSection() {
       <div className="relative max-w-7xl mx-auto px-6">
         <FadeIn className="text-center mb-16">
           <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Contact</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">お問い合わせ</h2>
+          <SplitTitle className="text-4xl md:text-5xl font-bold text-white mb-5">お問い合わせ</SplitTitle>
           <p className="text-blue-200/60 text-lg max-w-2xl mx-auto">
-            まずは無料相談から。30分のオンラインMTGで、AIで解決できる課題かどうかをご確認できます。
+            「まず話を聞いてみたい」で大丈夫です。課題が整理できていなくても、何から始めればいいかわからなくても、気軽にご相談ください。
           </p>
         </FadeIn>
 
@@ -41,15 +63,15 @@ export default function ContactSection() {
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-5">
                 <div>
                   <p className="text-xs text-blue-300/50 uppercase tracking-wider mb-1">メール</p>
-                  <p className="text-white text-sm">contact@ai-solutions.jp</p>
+                  <p className="text-white text-sm">taka.aicreate0707@gmail.com</p>
                 </div>
                 <div>
                   <p className="text-xs text-blue-300/50 uppercase tracking-wider mb-1">対応時間</p>
-                  <p className="text-white text-sm">平日 9:00〜18:00</p>
+                  <p className="text-white text-sm">平日夜・土日</p>
                 </div>
                 <div>
                   <p className="text-xs text-blue-300/50 uppercase tracking-wider mb-1">返信目安</p>
-                  <p className="text-white text-sm">1〜2営業日以内</p>
+                  <p className="text-white text-sm">2営業日以内</p>
                 </div>
               </div>
 
@@ -58,11 +80,9 @@ export default function ContactSection() {
                 <p className="text-xs text-blue-300/50 uppercase tracking-wider mb-4">SNS</p>
                 <div className="space-y-3">
                   {[
-                    { name: "X (Twitter)", handle: "@ai_solutions_jp", icon: "𝕏" },
-                    { name: "LinkedIn", handle: "yamada-taro-ai", icon: "in" },
-                    { name: "note", handle: "ai_solutions", icon: "n" },
+                    { name: "X (Twitter)", handle: "@tsugu_aicreate", icon: "𝕏", url: "https://x.com/tsugu_aicreate" },
                   ].map((sns) => (
-                    <div key={sns.name} className="flex items-center gap-3">
+                    <a key={sns.name} href={sns.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                       <span className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                         {sns.icon}
                       </span>
@@ -70,7 +90,7 @@ export default function ContactSection() {
                         <p className="text-white text-sm">{sns.name}</p>
                         <p className="text-blue-300/50 text-xs">{sns.handle}</p>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -155,11 +175,15 @@ export default function ContactSection() {
                   />
                 </div>
 
+                {error && (
+                  <p className="text-red-400 text-sm text-center">{error}</p>
+                )}
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-[1.02] glow-blue"
+                  disabled={sending}
+                  className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-[1.02] glow-blue"
                 >
-                  無料相談を申し込む
+                  {sending ? "送信中..." : "無料相談を申し込む"}
                 </button>
                 <p className="text-blue-300/40 text-xs text-center">
                   送信いただいた情報は、お問い合わせ対応以外に使用しません。
